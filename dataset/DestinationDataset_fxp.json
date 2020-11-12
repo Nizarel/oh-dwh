@@ -1,0 +1,19 @@
+{
+	"name": "DestinationDataset_fxp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStr",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "moviescollection"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
