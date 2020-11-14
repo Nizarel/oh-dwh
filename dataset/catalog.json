@@ -10,16 +10,16 @@
 				"type": "int"
 			},
 			"CatalogId": {
-				"type": "int"
+				"type": "string"
 			},
 			"SourceSystemMovieId": {
-				"type": "int"
+				"type": "string"
 			},
 			"SouthridgeMovieId": {
-				"type": "int"
+				"type": "string"
 			},
 			"ActorID": {
-				"type": "int"
+				"type": "string"
 			},
 			"ActorName": {
 				"type": "string"
@@ -37,16 +37,16 @@
 				"type": "string"
 			},
 			"RuntimeMinutes": {
-				"type": "string"
+				"type": "int"
 			},
 			"TheatricalReleaseYear": {
-				"type": "string"
+				"type": "int"
 			},
 			"PhysicalAvailabilityDate": {
-				"type": "string"
+				"type": "object"
 			},
 			"StreamingAvailabilityDate": {
-				"type": "string"
+				"type": "object"
 			}
 		},
 		"annotations": [],
