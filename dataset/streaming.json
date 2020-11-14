@@ -1,0 +1,49 @@
+{
+	"name": "streaming",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStr",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SourceSystemID": {
+				"type": "int"
+			},
+			"GlobalTransactionID": {
+				"type": "string"
+			},
+			"SourceSystemTransactionID": {
+				"type": "string"
+			},
+			"CustomerID": {
+				"type": "string"
+			},
+			"MovieID": {
+				"type": "string"
+			},
+			"StreamStart": {
+				"type": "object"
+			},
+			"StreamEnd": {
+				"type": "object"
+			},
+			"CreatedDate": {
+				"type": "object"
+			},
+			"UpdatedDate": {
+				"type": "object"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
