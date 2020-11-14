@@ -1,5 +1,5 @@
 {
-	"name": "catalog1",
+	"name": "catalog",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStr",
