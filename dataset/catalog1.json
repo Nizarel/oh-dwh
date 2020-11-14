@@ -1,0 +1,64 @@
+{
+	"name": "catalog1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStr",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SourceSystemId": {
+				"type": "int"
+			},
+			"CatalogId": {
+				"type": "int"
+			},
+			"SourceSystemMovieId": {
+				"type": "int"
+			},
+			"SouthridgeMovieId": {
+				"type": "int"
+			},
+			"ActorID": {
+				"type": "int"
+			},
+			"ActorName": {
+				"type": "string"
+			},
+			"ActorGender": {
+				"type": "string"
+			},
+			"Title": {
+				"type": "string"
+			},
+			"Genre": {
+				"type": "string"
+			},
+			"Rating": {
+				"type": "string"
+			},
+			"RuntimeMinutes": {
+				"type": "string"
+			},
+			"TheatricalReleaseYear": {
+				"type": "string"
+			},
+			"PhysicalAvailabilityDate": {
+				"type": "string"
+			},
+			"StreamingAvailabilityDate": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
