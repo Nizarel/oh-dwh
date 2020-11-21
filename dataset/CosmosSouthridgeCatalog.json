@@ -1,0 +1,12 @@
+{
+	"name": "CosmosSouthridgeCatalog",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "southridgecosmos",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {}
+	}
+}
