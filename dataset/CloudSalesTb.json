@@ -1,0 +1,17 @@
+{
+	"name": "CloudSalesTb",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlCloudSales",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tablename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
