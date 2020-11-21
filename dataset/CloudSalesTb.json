@@ -14,8 +14,8 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "@dataset()",
-			"table": "tablename"
+			"schema": "@dataset().tablename",
+			"table": ""
 		}
 	}
 }
