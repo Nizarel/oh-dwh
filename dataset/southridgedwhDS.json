@@ -1,5 +1,5 @@
 {
-	"name": "Parquet1",
+	"name": "southridgedwhDS",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "adf_southridgedwh",
