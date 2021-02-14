@@ -1,0 +1,11 @@
+{
+	"name": "CopyCloudSalesSQL",
+	"properties": {
+		"parameters": {
+			"items": {
+				"type": "array"
+			}
+		},
+		"annotations": []
+	}
+}
