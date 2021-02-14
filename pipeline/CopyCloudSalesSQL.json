@@ -1,6 +1,20 @@
 {
 	"name": "CopyCloudSalesSQL",
 	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.items",
+						"type": "Expression"
+					}
+				}
+			}
+		],
 		"parameters": {
 			"items": {
 				"type": "array"
