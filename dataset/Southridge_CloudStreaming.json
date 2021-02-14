@@ -1,0 +1,23 @@
+{
+	"name": "Southridge_CloudStreaming",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Southridge_CloudStreaming",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tablename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().tablename",
+				"type": "Expression"
+			}
+		}
+	}
+}
