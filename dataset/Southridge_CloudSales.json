@@ -1,0 +1,21 @@
+{
+	"name": "Southridge_CloudSales",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Southridge_CloudSales",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tablename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "@dataset()",
+			"table": "tablename"
+		}
+	}
+}
