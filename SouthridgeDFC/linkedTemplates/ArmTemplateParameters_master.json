@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "SouthridgeDFC"
+		},
+		"Southridge_ADLS_Gen2_accountKey": {
+			"value": ""
+		},
+		"Southridge_CloudSales_connectionString": {
+			"value": ""
+		},
+		"Southridge_CloudStreaming_connectionString": {
+			"value": ""
+		},
+		"Southridge_Cosmos_connectionString": {
+			"value": ""
+		},
+		"Southridge_ADLS_Gen2_properties_typeProperties_url": {
+			"value": "https://southridgedl.dfs.core.windows.net"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
