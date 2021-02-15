@@ -1,0 +1,273 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "SouthridgeDFC"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/CopySalesDB')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach_6k7",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.cw_items",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy_6k7",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [
+										{
+											"name": "Source",
+											"value": "@{item().source.schema}.@{item().source.table}"
+										},
+										{
+											"name": "Destination",
+											"value": "southridge/raw/cloudsales/@{item().destination.fileName}"
+										}
+									],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"validateDataConsistency": false
+									},
+									"inputs": [
+										{
+											"referenceName": "SourceDataset_6k7",
+											"type": "DatasetReference",
+											"parameters": {
+												"cw_schema": "@item().source.schema",
+												"cw_table": "@item().source.table"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DestinationDataset_6k7",
+											"type": "DatasetReference",
+											"parameters": {
+												"cw_fileName": "@item().destination.fileName"
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"parameters": {
+					"cw_items": {
+						"type": "Array",
+						"defaultValue": [
+							{
+								"source": {
+									"schema": "dbo",
+									"table": "Addresses"
+								},
+								"destination": {
+									"fileName": "dboAddresses"
+								}
+							},
+							{
+								"source": {
+									"schema": "dbo",
+									"table": "Customers"
+								},
+								"destination": {
+									"fileName": "dboCustomers"
+								}
+							},
+							{
+								"source": {
+									"schema": "dbo",
+									"table": "OrderDetails"
+								},
+								"destination": {
+									"fileName": "dboOrderDetails"
+								}
+							},
+							{
+								"source": {
+									"schema": "dbo",
+									"table": "Orders"
+								},
+								"destination": {
+									"fileName": "dboOrders"
+								}
+							},
+							{
+								"source": {
+									"schema": "Hidden",
+									"table": "Addresses"
+								},
+								"destination": {
+									"fileName": "HiddenAddresses"
+								}
+							},
+							{
+								"source": {
+									"schema": "Hidden",
+									"table": "AddressUpdates"
+								},
+								"destination": {
+									"fileName": "HiddenAddressUpdates"
+								}
+							},
+							{
+								"source": {
+									"schema": "Hidden",
+									"table": "Customers"
+								},
+								"destination": {
+									"fileName": "HiddenCustomers"
+								}
+							},
+							{
+								"source": {
+									"schema": "Hidden",
+									"table": "CustomerUpdates"
+								},
+								"destination": {
+									"fileName": "HiddenCustomerUpdates"
+								}
+							},
+							{
+								"source": {
+									"schema": "Hidden",
+									"table": "OrderDetails"
+								},
+								"destination": {
+									"fileName": "HiddenOrderDetails"
+								}
+							},
+							{
+								"source": {
+									"schema": "Hidden",
+									"table": "Orders"
+								},
+								"destination": {
+									"fileName": "HiddenOrders"
+								}
+							},
+							{
+								"source": {
+									"schema": "Hidden",
+									"table": "OrderUpdates"
+								},
+								"destination": {
+									"fileName": "HiddenOrderUpdates"
+								}
+							}
+						]
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SourceDataset_6k7')]",
+				"[concat(variables('factoryId'), '/datasets/DestinationDataset_6k7')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_6k7')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Southridge_ADLS_Gen2",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"cw_fileName": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().cw_fileName",
+							"type": "Expression"
+						},
+						"folderPath": "raw/cloudsales",
+						"fileSystem": "southridge"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_6k7')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Southridge_CloudSales",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"cw_schema": {
+						"type": "String"
+					},
+					"cw_table": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().cw_schema",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().cw_table",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
