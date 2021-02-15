@@ -1,0 +1,168 @@
+{
+	"name": "CopyCloudStreaming",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_h52",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_h52",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.schema}.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "southridge/raw/CloudStreaming/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_h52",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_schema": "@item().source.schema",
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_h52",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"schema": "dbo",
+							"table": "Addresses"
+						},
+						"destination": {
+							"fileName": "dbo.Addresses"
+						}
+					},
+					{
+						"source": {
+							"schema": "dbo",
+							"table": "Customers"
+						},
+						"destination": {
+							"fileName": "dbo.Customers"
+						}
+					},
+					{
+						"source": {
+							"schema": "dbo",
+							"table": "Transactions"
+						},
+						"destination": {
+							"fileName": "dbo.Transactions"
+						}
+					},
+					{
+						"source": {
+							"schema": "Hidden",
+							"table": "Addresses"
+						},
+						"destination": {
+							"fileName": "Hidden.Addresses"
+						}
+					},
+					{
+						"source": {
+							"schema": "Hidden",
+							"table": "AddressUpdates"
+						},
+						"destination": {
+							"fileName": "Hidden.AddressUpdates"
+						}
+					},
+					{
+						"source": {
+							"schema": "Hidden",
+							"table": "Customers"
+						},
+						"destination": {
+							"fileName": "Hidden.Customers"
+						}
+					},
+					{
+						"source": {
+							"schema": "Hidden",
+							"table": "CustomerUpdates"
+						},
+						"destination": {
+							"fileName": "Hidden.CustomerUpdates"
+						}
+					},
+					{
+						"source": {
+							"schema": "Hidden",
+							"table": "Transactions"
+						},
+						"destination": {
+							"fileName": "Hidden.Transactions"
+						}
+					},
+					{
+						"source": {
+							"schema": "Hidden",
+							"table": "TransactionUpdates"
+						},
+						"destination": {
+							"fileName": "Hidden.TransactionUpdates"
+						}
+					}
+				]
+			}
+		},
+		"annotations": []
+	}
+}
